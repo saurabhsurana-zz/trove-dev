@@ -1,0 +1,46 @@
+#!/bin/bash
+
+ENABLE_NEUTRON=true
+
+if [ -z ${ENABLE_NEUTRON} ]
+then
+    echo "ERROR: Please set value for ENABLE_NEUTRON"
+    exit 1
+fi
+
+lsb_release -a | grep Release | grep 14.04
+if [ $? -ne 0 ]
+then
+    echo "WARNING: This script is tested only on Ubuntu 14.04"
+fi
+
+# check if running on a vagrant vm or on ubuntu vm (cloud/vmfusion/baremetal)
+id -u ubuntu
+if [ $? -eq 0 ]
+then
+    VM_USER=ubuntu
+    VM_USER_HOME=/home/ubuntu
+else
+    echo "ERROR: Ubuntu user not found. Cannot proceed"
+    exit 1
+fi
+
+#if [ "$(id -u)" != "0" ]
+#then
+#   echo "ERROR: This script must be run as root" 1>&2
+#   exit 1
+#fi
+
+apt-get update
+apt-get install git git-core wget libxml2-dev libxslt1-dev python-pexpect apache2 bc debhelper curl sshpass -y
+
+cd ${VM_USER_HOME}
+if ! [ -d ${VM_USER_HOME}/trove-dev ]
+then
+    git clone https://github.com/saurabhsurana/trove-dev
+    SETUP_DIR=${VM_USER_HOME}/trove-dev
+fi
+
+cd ${VM_USER_HOME}/trove-dev/bootstrap
+./bootstrap_redstack.bash ${ENABLE_NEUTRON}
+
