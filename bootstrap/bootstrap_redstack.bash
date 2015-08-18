@@ -32,8 +32,8 @@ else
     if ! [ -d ${VM_USER_HOME}/trove-dev ]
     then
         git clone https://github.com/saurabhsurana/trove-dev
-        SETUP_DIR=${VM_USER_HOME}/trove-dev
     fi
+    SETUP_DIR=${VM_USER_HOME}/trove-dev
 fi
 
 . ${SETUP_DIR}/common/pre_setup.bash
@@ -55,14 +55,21 @@ source ${VM_USER_HOME}/devstack/openrc admin admin
 a=0
 while [ $a -lt 120 ]
 do
-    source ${VM_USER_HOME}/devstack/openrc admin admin
-    nova list
-    if [ $? -ne 0 ]
+    which nova 2>&1 > /dev/null
+    if [ $? -eq 0 ]
     then
-        sleep 15
-        echo -n "."
-        a=`expr $a + 1`
+        source ${VM_USER_HOME}/devstack/openrc admin admin 2>&1 > /dev/null
+        nova list 2>&1 > /dev/null
+        if [ $? -eq 0 ]
+        then
+            break
+        fi
     fi
+
+    sleep 15
+    echo -n "."
+    a=`expr $a + 1`
+
 done
 
 if [ $a -eq 120 ]
