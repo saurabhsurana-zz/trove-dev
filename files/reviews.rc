@@ -1,0 +1,17 @@
+# This file will contain variables such as below, uncommented.
+# There will be a : separator between multiple inflight reviews
+# The path comes from the gerrit review system, and is the only
+# unique portion of each gerrit review.
+# REVIEW_PYTHON_NOVACLIENT=18/5018/2
+# 13/196913/17 - Root enablement for Vertica clusters/instances
+# 71/204271/11 - Modifying Vertica clusters to have a master node
+# 70/208670/3 - Update mgmt console
+# 78/207578/6 - Floating IP on master node
+# 24/109824/42 - Flavor datastore association
+
+REVIEW_TROVE=13/196913/17:71/204271/11:24/109824/42
+
+# 49/184349/11 - nic and az on cluster create
+# 60/197360/8 - root on cluster create
+
+REVIEW_PYTHON_TROVECLIENT=49/184349/11:60/197360/8
