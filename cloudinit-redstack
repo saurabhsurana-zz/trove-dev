@@ -1,6 +1,6 @@
 #!/bin/bash
 
-ENABLE_NEUTRON=false
+ENABLE_NEUTRON=ENABLE_NEUTRON_VALUE
 
 if [ -z ${ENABLE_NEUTRON} ]
 then
