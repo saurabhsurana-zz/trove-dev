@@ -4,7 +4,8 @@
 RAM = 12240
 CPU = 4
 
-OPENSTACK_SOURCE_DIR = ENV['OPENSTACK_SOURCE_DIR'] || raise('Please set env variable "OPENSTACK_SOURCE_DIR')
+OPENSTACK_SOURCE_DIR = ENV['OPENSTACK_SOURCE_DIR']
+#OPENSTACK_SOURCE_DIR = ENV['OPENSTACK_SOURCE_DIR'] || raise('Please set env variable "OPENSTACK_SOURCE_DIR')
 OPENSTACK_SYNC_DIR = ENV['OPENSTACK_SYNC_DIR'] || "/home/vagrant/shared-stack"
 ENABLE_NEUTRON = ENV['ENABLE_NEUTRON'] || true
 
@@ -24,14 +25,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   # ########################################
   # other sync directories/provisioning scripts
-  config.vm.synced_folder "/Users/saurabhsurana/saurabh", "/vagrant-shared/saurabh", owner: "vagrant", group: "vagrant"
-  config.vm.synced_folder "/Users/saurabhsurana/Downloads", "/vagrant-shared/Downloads", owner: "vagrant", group: "vagrant"
-  config.vm.synced_folder "/Users/saurabhsurana/Documents", "/vagrant-shared/Documents", owner: "vagrant", group: "vagrant"
-
-  config.vm.synced_folder "/HPCS/1.1/github/hp/dev-platform-liberty", "/home/vagrant/source-liberty", create: true, type: "rsync",
-    rsync__args: ["--verbose", "--archive", "-z", "--copy-links"],
-    rsync__exclude: [".tox/", ".venv/", "trovetest.log", ".vagrant"],
-    rsync__auto: true
 
   # ########################################
 
@@ -46,8 +39,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       s.path = "bootstrap/bootstrap_redstack.bash"
       s.args = [ENABLE_NEUTRON]
   end
-
-  config.vm.network "forwarded_port", guest: 80, host: 4681, protocol: 'tcp'
 
   # ########################################
   # add other ports

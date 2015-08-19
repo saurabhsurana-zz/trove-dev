@@ -5,7 +5,7 @@ SEC_GROUP=${SEC_GROUP:-devstack}
 IMAGE_NAME=${IMAGE_NAME:-Ubuntu Server 14.0}
 KEY_NAME=${KEY_NAME:-bigdata-team}
 NETWORK_NAME=${NETWORK_NAME:-devstack}
-FLAVOR=${FLAVOR:-105}
+FLAVOR=${FLAVOR:-104}
 AZ=${AZ:-az3}
 
 TAG=`date +"%m%d%H%M"`
@@ -43,9 +43,11 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
+rm -rf cloudinit-redstack.bash
+
 if [ -f cloudinit-redstack ]
 then
-    sed -i .bash "s/ENABLE_NEUTRON_VALUE/$ENABLE_NEUTRON/g" cloudinit-redstack
+    sed "s/ENABLE_NEUTRON_VALUE/$ENABLE_NEUTRON/g" cloudinit-redstack  > cloudinit-redstack.bash
 fi
 
 nova boot --image ${IMAGE_ID} --flavor ${FLAVOR} --security_group ${SEC_GROUP} --key_name ${KEY_NAME} --nic net-id=${NET_ID} --availability_zone ${AZ} --user_data cloudinit-redstack.bash ${INSTANCE_NAME}

@@ -7,6 +7,7 @@ VM_USER=vagrant
 VM_USER_HOME=/home/vagrant
 
 if [ -z ${OPENSTACK_SYNC_DIR} ]
+then
     echo "WARN: OPENSTACK_SYNC_DIR not set"
     exit 0
 fi

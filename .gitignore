@@ -1,0 +1,6 @@
+cloudinit-redstack.bash
+.vagrant
+.images
+.vertica
+.db2
+
