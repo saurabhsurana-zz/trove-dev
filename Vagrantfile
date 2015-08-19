@@ -24,14 +24,24 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   # ########################################
   # other sync directories/provisioning scripts
+  config.vm.synced_folder "/Users/saurabhsurana/saurabh", "/vagrant-shared/saurabh", owner: "vagrant", group: "vagrant"
+  config.vm.synced_folder "/Users/saurabhsurana/Downloads", "/vagrant-shared/Downloads", owner: "vagrant", group: "vagrant"
+  config.vm.synced_folder "/Users/saurabhsurana/Documents", "/vagrant-shared/Documents", owner: "vagrant", group: "vagrant"
+
+  config.vm.synced_folder "/HPCS/1.1/github/hp/dev-platform-liberty", "/home/vagrant/source-liberty", create: true, type: "rsync",
+    rsync__args: ["--verbose", "--archive", "-z", "--copy-links"],
+    rsync__exclude: [".tox/", ".venv/", "trovetest.log", ".vagrant"],
+    rsync__auto: true
 
   # ########################################
 
-  config.vm.provision "check_source", type: "shell", run: "always" do |s|
-      s.path = "common/check_source.bash"
-      s.args = [OPENSTACK_SYNC_DIR]
+  if OPENSTACK_SOURCE_DIR
+      config.vm.provision "check_source", type: "shell", run: "always" do |s|
+          s.path = "common/check_source.bash"
+          s.args = [OPENSTACK_SYNC_DIR]
+      end
   end
-
+ 
   config.vm.provision "bootstrap_redstack", type: "shell", run: "always" do |s|
       s.path = "bootstrap/bootstrap_redstack.bash"
       s.args = [ENABLE_NEUTRON]

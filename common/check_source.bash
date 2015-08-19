@@ -6,6 +6,11 @@ OPENSTACK_SYNC_DIR=$1
 VM_USER=vagrant
 VM_USER_HOME=/home/vagrant
 
+if [ -z ${OPENSTACK_SYNC_DIR} ]
+    echo "WARN: OPENSTACK_SYNC_DIR not set"
+    exit 0
+fi
+
 for sync_target in `ls $OPENSTACK_SYNC_DIR`
 do
     if [ "$sync_target" = 'devstack' ];

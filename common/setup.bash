@@ -31,5 +31,5 @@ EOF
             export LIBS_FROM_GIT_ALL_OSLO=false;
             export ENABLE_CEILOMETER=false;
             export ENABLE_PROFILER=false;
-            ./redstack install 2&1 | tee /var/log/setup-devstack.log" ${VM_USER}
+            ./redstack install 2>&1 | tee /var/log/setup-devstack.log" ${VM_USER}
 }
