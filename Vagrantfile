@@ -7,7 +7,7 @@ CPU = 4
 OPENSTACK_SOURCE_DIR = ENV['OPENSTACK_SOURCE_DIR']
 #OPENSTACK_SOURCE_DIR = ENV['OPENSTACK_SOURCE_DIR'] || raise('Please set env variable "OPENSTACK_SOURCE_DIR')
 OPENSTACK_SYNC_DIR = ENV['OPENSTACK_SYNC_DIR'] || "/home/vagrant/shared-stack"
-ENABLE_NEUTRON = ENV['ENABLE_NEUTRON'] || true
+ENABLE_NEUTRON = ENV['ENABLE_NEUTRON'] || "true"
 
 # Vagrantfile API/syntax version. Don't touch unless you know what you're doing!
 VAGRANTFILE_API_VERSION = "2"
