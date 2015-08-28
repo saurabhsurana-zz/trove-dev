@@ -84,6 +84,6 @@ fi
 
 add_mycnf
 fix_iptables
-create_SVC_network
+create_network
 create_default_keypair
 create_stack_flavors
