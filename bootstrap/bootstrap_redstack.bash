@@ -10,6 +10,7 @@ then
     echo "ERROR: Please set value for ENABLE_NEUTRON"
     exit 1
 fi
+echo "ENABLE_NEUTRON=${ENABLE_NEUTRON}"
 
 # check if running on a vagrant vm or on ubuntu vm (cloud/vmfusion/baremetal)
 id -u vagrant
@@ -21,6 +22,8 @@ else
     VM_USER=ubuntu
     VM_USER_HOME=/home/ubuntu
 fi
+echo "VM_USER=${VM_USER}"
+echo "VM_USER_HOME=${VM_USER_HOME}"
 
 SETUP_DIR=/vagrant
 
@@ -35,6 +38,7 @@ else
     fi
     SETUP_DIR=${VM_USER_HOME}/trove-dev
 fi
+echo "SETUP_DIR=${SETUP_DIR}"
 
 . ${SETUP_DIR}/common/pre_setup.bash
 . ${SETUP_DIR}/common/setup.bash
