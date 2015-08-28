@@ -79,8 +79,20 @@ export ENABLE_NEUTRON=true; ./redstack kick-start mysql
 # Usage
 ========
 ```
+git clone https://github.com/saurabhsurana/trove-dev
+cd trove-dev
+```
+
+### Vagrant Setup
+```
 export OPENSTACK_SOURCE_DIR=/path-to-your-openstack-code
 export ENABLE_NEUTRON=false
 vagrant up --provider vmware_fusion
 ```
 
+### Cloud NOVA VM Setup
+```
+source nova-stackrc     # the credentials for your could account
+export ENABLE_NEUTRON=false
+./nova-boot.bash
+```
