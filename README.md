@@ -22,7 +22,7 @@ Using this setup, you have two options create dev environment
 Environment Variables:
 =================================
 ##### ENABLE_NEUTRON 
-_(used by both, Vagrant and cloud VM setup)_
+_(used by both, Vagrant and Nova/Cloud VM setup)_
 
 This defines network configuration for your devstack environment.
 Use export to set the appropriate value for this variable.
@@ -90,7 +90,7 @@ export ENABLE_NEUTRON=false
 vagrant up --provider vmware_fusion
 ```
 
-### Cloud NOVA VM Setup
+### Nova/Cloud VM Setup
 ```
 source nova-stackrc     # the credentials for your could account
 export ENABLE_NEUTRON=false
