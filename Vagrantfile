@@ -17,10 +17,13 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   if OPENSTACK_SOURCE_DIR
       config.vm.synced_folder OPENSTACK_SOURCE_DIR, OPENSTACK_SYNC_DIR, 
-          create: true, type: "rsync",
-          owner: "vagrant", group: "vagrant",
-	  rsync__auto: true,
-          rsync__args: ["--verbose", "--archive", "-z", "--copy-links"]
+          create: true, 
+          type: "rsync",
+          owner: "vagrant", 
+          group: "vagrant", 
+          rsync__auto: true,
+          rsync__args: ["--verbose", "--archive", "-z", "--copy-links"],
+          rsync__exclude: ["*/.tox/", "*/.venv/"]
   end
 
   # ########################################
