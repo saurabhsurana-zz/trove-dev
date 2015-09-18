@@ -16,14 +16,14 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.box = "juice/box-apple-trusty-xl"
 
   if OPENSTACK_SOURCE_DIR
-      config.vm.synced_folder OPENSTACK_SOURCE_DIR, OPENSTACK_SYNC_DIR, 
-          create: true, 
+      config.vm.synced_folder OPENSTACK_SOURCE_DIR, OPENSTACK_SYNC_DIR,
+          create: true,
           type: "rsync",
-          owner: "vagrant", 
-          group: "vagrant", 
+          owner: "vagrant",
+          group: "vagrant",
           rsync__auto: true,
           rsync__args: ["--verbose", "--archive", "-z", "--copy-links"],
-          rsync__exclude: ["*/.tox/", "*/.venv/"]
+          rsync__exclude: ["*/.tox/", "*/.venv/", "*/.vagrant/"]
   end
 
   # ########################################
@@ -37,7 +37,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
           s.args = [OPENSTACK_SYNC_DIR]
       end
   end
- 
+
   config.vm.provision "bootstrap_redstack", type: "shell", run: "always" do |s|
       s.path = "bootstrap/bootstrap_redstack.bash"
       s.args = [ENABLE_NEUTRON]
