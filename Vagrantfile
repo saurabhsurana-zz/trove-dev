@@ -32,15 +32,19 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # ########################################
 
   if OPENSTACK_SOURCE_DIR
-      config.vm.provision "check_source", type: "shell", run: "always" do |s|
-          s.path = "common/check_source.bash"
-          s.args = [OPENSTACK_SYNC_DIR]
+      config.vm.provision "check_source", type: "shell" do |s|
+        s.path = "common/check_source.bash"
+        s.args = [OPENSTACK_SYNC_DIR]
       end
   end
+ 
+  config.vm.provision "bootstrap_redstack", type: "shell" do |s|
+    s.path = "bootstrap/bootstrap_redstack.bash"
+    s.args = [ENABLE_NEUTRON]
+  end
 
-  config.vm.provision "bootstrap_redstack", type: "shell", run: "always" do |s|
-      s.path = "bootstrap/bootstrap_redstack.bash"
-      s.args = [ENABLE_NEUTRON]
+  config.vm.provision "clean_temp", type: "shell", run: "always" do |s|
+    s.path = "common/clean_temp.sh"
   end
 
   # ########################################
