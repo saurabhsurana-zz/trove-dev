@@ -12,9 +12,11 @@ function setup_redstack() {
 
     if [[ $ENABLE_NEUTRON = true ]]
     then
+        USING_VAGRANT=False
         ENABLED_SERVICES=key,n-api,n-cpu,n-cond,n-sch,n-crt,n-cauth,n-novnc,g-api,g-reg,c-sch,c-api,c-vol,horizon,rabbit,tempest,mysql,dstat,trove,tr-api,tr-tmgr,tr-cond,s-proxy,s-object,s-container,s-account,heat,h-api,h-api-cfn,h-api-cw,h-eng,neutron,q-svc,q-agt,q-dhcp,q-l3,q-meta
 
     else
+        USING_VAGRANT=True
         ENABLED_SERVICES=key,n-api,n-cpu,n-cond,n-sch,n-crt,n-cauth,n-novnc,g-api,g-reg,c-sch,c-api,c-vol,horizon,rabbit,tempest,mysql,dstat,trove,tr-api,tr-tmgr,tr-cond,s-proxy,s-object,s-container,s-account,heat,h-api,h-api-cfn,h-api-cw,h-eng,n-net
 
     fi
@@ -32,7 +34,7 @@ EOF
     chown -R ${VM_USER}:${VM_USER} ${VM_USER_HOME}
 
     su - ${VM_USER} -c  "export ENABLE_NEUTRON=${ENABLE_NEUTRON};
-                         export USING_VAGRANT=True;
+                         export USING_VAGRANT=${USING_VAGRANT};
                          export LIBS_FROM_GIT_ALL_CLIENTS=false;
                          export LIBS_FROM_GIT_ALL_OSLO=false;
                          export ENABLE_CEILOMETER=false;
